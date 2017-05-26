@@ -3,11 +3,14 @@
 	<head>
 		<title>Change colour</title>
 		<meta charset="UTF-8">
+		<style type="text/css">
+			body, p, img { transition: all 0.4s ease-out;}
+		</style>
 	</head>
 	<body>
 		<h1>Another Brick in the Wall</h1>
 		<h3>Pink Floyd</h3>
-		<p>We don't need no education<br>
+		<p class="lyrics">We don't need no education<br>
 		We don't need no thought control<br>
 		No dark sarcasm in the classroom<br>
 		Teachers leave them kids alone<br>
@@ -15,12 +18,79 @@
 		All in all it's just another brick in the wall<br>
 		All in all you're just another brick in the wall</p>
 		
-		<p style="visibility: hidden;">Pink Floyd were an English rock band formed in London.<br>
+		<p style="visibility: hidden;" class="hidden">Pink Floyd were an English rock band formed in London.<br>
 		They achieved international acclaim with their progressive<br>
 		and psychedelic music.</p>
 		
 		<script>
 			// a JavaScript code here ...
+			(function () {
+
+				var pt2Added = false;
+				document.querySelector('h1').addEventListener('click', function () {
+					if (!pt2Added) {
+						this.innerText = this.innerText + ', Part 2';
+						pt2Added = true;
+					}
+				});
+				document.querySelector('h3').addEventListener('click', function () {
+					var el = document.querySelector('.hidden');
+					if (el) {
+						el.style.visibility = 'visible';
+					}
+				});
+
+				document.querySelector('.lyrics').addEventListener('click', function () {
+					this.style.fontStyle = 'italic';
+				});
+
+				document.body.addEventListener('dblclick', function () {
+					this.style.backgroundColor = 'yellow';
+				});
+
+
+				var ctrlDown = false,
+						ctrlKey = 17,
+						cmdKey = 91,
+						vKey = 86,
+						cKey = 67;
+
+				document.addEventListener('keydown', function(e) {
+					if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+				});
+				document.addEventListener('keyup', function(e) {
+					if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+				});
+				document.addEventListener('keydown', function (e) {
+					if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) {
+						alert('Please stop copying this text');
+						e.preventDefault();
+						e.stopPropagation();
+						return false;
+					}
+				});
+				document.querySelector('.hidden').addEventListener('click', function () {
+					var el = document.getElementById('image');
+
+					if (!el) {
+						el = document.createElement('img');
+						el.id = 'image';
+						el.style.opacity = 0;
+						var opacity = function () {
+							el.style.opacity = 1;
+						};
+						el.addEventListener('load', opacity);
+
+						document.body.appendChild(el);
+						el.src = "https://upload.wikimedia.org/wikipedia/en/d/d6/Pink_Floyd_-_all_members.jpg";
+						if (el.naturalWidth) {
+							opacity();
+						}
+					}
+				})
+
+
+			})()
 			
 		</script>
 	</body>

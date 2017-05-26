@@ -7,6 +7,18 @@
 	<body>
 		<h3>Sticks and stones may break my bones, but words will never harm me.</h3>
 		<script>
+			(function () {
+				var elem = document.querySelector('h3');
+				var orig = elem.innerText;
+				var translated = 'Kije i kamienie kości mi połamią, ale twoje słowa nigdy mnie nie zranią.';
+
+				elem.addEventListener('mouseenter', function () {
+					elem.innerText = translated;
+				});
+				elem.addEventListener('mouseout', function () {
+					elem.innerText = orig;
+				})
+			})();
 			// a JavaScript code here ...
 			
 			// Translation:
